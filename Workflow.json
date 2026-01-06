@@ -1,0 +1,100 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -704,
+        -240
+      ],
+      "id": "2c47d29e-8b3b-448a-a5b0-00d11255a43b",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get data from the Form node\nconst emailid = $json.emailid;\nconst subject = $json.subject;\nconst content = $json.content;\n\n// Build email object\nreturn [\n  {\n    json: {\n      email: {\n        to: \"example@gmail.com\",\n        subject: subject,\n        body: content\n      }\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -16
+      ],
+      "id": "98d8b544-80c4-4e47-a91e-2c3df486d8f9",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "formTitle": "Draft an email",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "emailid",
+              "fieldLabel": "Enter emailid"
+            },
+            {
+              "fieldName": "subject",
+              "fieldLabel": "enter subject"
+            },
+            {
+              "fieldName": "content",
+              "fieldLabel": "enter content"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        -320,
+        -16
+      ],
+      "id": "6cee6eb2-592c-4544-8ad0-0007d7595a48",
+      "name": "On form submission",
+      "webhookId": "5f032366-60e1-489c-b39f-10710b7c9e60"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        []
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "c5750686-721d-4bc6-8e3a-9f6cd61ce421",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7ed4af2c4d9772f7adfaf86d28ca0d9d493eaa2a86dbba161722ffe971fe2b9b"
+  },
+  "id": "aelPvDUAbF9AO0mV",
+  "tags": []
+}
